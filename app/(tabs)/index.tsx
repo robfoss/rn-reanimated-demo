@@ -1,31 +1,64 @@
-import { StyleSheet } from 'react-native';
+import { Image, StyleSheet, Text, SafeAreaView, FlatList, Pressable } from 'react-native';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import { Link, Stack} from 'expo-router';
+import Animated from 'react-native-reanimated';
+import portraits from '../data/portraits';
+
+
+
 
 export default function TabOneScreen() {
+  <Stack.Screen name='index' options={{headerShown: false, animation: 'slide_from_bottom'}}/>
+  const renderItem = ({item}) => {
+    return (
+      <Link href={`/(tabs)/${item.id}`} asChild>
+        <Pressable style={styles.item}>
+          <Animated.Image sharedTransitionTag={`image-${item.id}`} style={styles.image} source={item.image}/>
+          <Animated.Text sharedTransitionTag={`title-${item.id}`} style={styles.title}>{item.name}</Animated.Text>
+        </Pressable>
+      </Link>
+    )
+  }
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <SafeAreaView>
+      <FlatList
+      data={portraits}
+      renderItem={renderItem}
+      keyExtractor={item => item.id}
+      numColumns={2}
+   
+    />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+   padding: 16,
+   backgroundColor: '#171717'
+  },
+  item: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    aspectRatio: 1,
+    marginHorizontal: 8,
+    marginBottom: 16,
+    elevation: 4,
+    overflow: 'hidden',
+   
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    //textAlign: 'center',
+   marginVertical: 8,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+  image: {
+    width: '100%',
+    height: '70%',
+    resizeMode: 'cover',
+    objectFit: 'fill',
+    borderRadius: 16,
+  }
 });
+
+
