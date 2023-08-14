@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     elevation: 4,
     overflow: 'hidden',
+    alignItems: 'center',
    
   },
   title: {
