@@ -26,7 +26,6 @@ export default function TabOneScreen() {
       renderItem={renderItem}
       keyExtractor={item => item.id}
       numColumns={2}
-   
     />
     </SafeAreaView>
   );

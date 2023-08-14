@@ -1,4 +1,4 @@
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useRouter, useLocalSearchParams, Stack, Tabs } from 'expo-router';
 import React from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import portraits from '../data/portraits';
@@ -8,8 +8,16 @@ import Animated from 'react-native-reanimated';
 const PortraitDetails = () => {
   const { id } = useLocalSearchParams();
   const router = useRouter();
-
   const portrait = portraits.find((p) => p.id == id);
+
+  <Stack.Screen
+    name={`/${id}`}
+    options={{
+      headerShown: false,
+      animation: 'slide_from_bottom',
+      title: `${id}`,
+    }}
+  />;
 
   const handlePressBack = () => {
     router.back();
@@ -29,7 +37,7 @@ const PortraitDetails = () => {
         {portrait.name}
       </Animated.Text>
       <View style={styles.detailsContainer}>
-        <Text style={styles.detailsTitle}>Details:</Text>
+        <Text style={styles.detailsTitle}>Story:</Text>
         <Text style={styles.detailsText}>{portrait.description}</Text>
       </View>
 
@@ -56,6 +64,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginHorizontal: 16,
     marginTop: 16,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
   },
   detailsContainer: {
     marginHorizontal: 16,
@@ -63,8 +73,9 @@ const styles = StyleSheet.create({
   },
   detailsTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '600',
     marginBottom: 8,
+    letterSpacing: 1,
   },
   detailsText: {
     fontSize: 16,
